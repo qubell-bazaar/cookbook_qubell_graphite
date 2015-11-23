@@ -1,0 +1,10 @@
+LoadPlugin syslog
+<Plugin syslog>
+  LogLevel <%= @logLevel  %> 
+</Plugin>
+
+<LoadPlugin "python">
+    Globals true
+</LoadPlugin>
+
+Include "/etc/collectd/plugins/*.conf"

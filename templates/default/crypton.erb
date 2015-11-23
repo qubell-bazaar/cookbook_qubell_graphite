@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="carbonator" type="Crypton.Carbonator.Config.CarbonatorSection, Crypton.Carbonator"/>
+  </configSections>
+
+  <!--
+    defaultCulture setting specifies which culture set will be used to find Performance Counters
+      on non-English Windows installations, performance counter names will be in the localized language
+      this setting may be necessary to use English names (e.g. Processor vs. Процессор (ru-RU))
+  -->
+  <carbonator defaultCulture="en-US" logLevel="1" collectionInterval="1000" reportingInterval="5000" >
+    <!--
+      logLevel:
+        0= disable logging
+        1= log information
+        2= log warnings (and everything below)
+        3= log errors (and everything below)
+        4= log everything
+    -->
+    <!-- add maxMetricBufferSize attribute above to tune maximum number of metrics that will be stored
+         if this buffer is full, no new metrics will be stored until it is cleared again (this can happen if we lose
+         connection to the Graphite server
+         default is 21600 metrics (say 1 metric per second for 6 hours)
+         any value less than or equal to 0 to disable this feature (CAUTION: may lead to memory leaks)
+    -->
+
+    <!-- where graphite metrics will be sent -->
+    <graphite server="<%= @carbon_host %>" port="<%= @carbon_port %>" />
+
+    <!--
+      performance counters that will be collected
+      special variables:
+
+      %HOST%  -  substitutes current computer name (Environment.MachineName)
+
+      -->
+    <counters>
+      <add path="%HOST%.cpu" category="Processor" counter="% Processor Time" instance="_Total" />
+      <add path="%HOST%.memAvailable" category="Memory" counter="Available Bytes" instance="" />
+      <add path="%HOST%.diskFree.C" category="LogicalDisk" counter="% Free Space" instance="C:" />
+    </counters>
+  </carbonator>
+
+
+
+</configuration>

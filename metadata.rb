@@ -1,0 +1,10 @@
+name 'qubell_graphite'
+maintainer 'Anton Butovich'
+maintainer_email 'abutovich@qubell.com'
+description 'Installs/Configures Graphite'
+version '0.1.0'
+
+depends 'graphite', '= 1.0.1'
+depends 'memcached', '= 1.9.0'
+depends 'collectd-ng', '= 2.0.0'
+depends 'java', '= 1.26.0'
