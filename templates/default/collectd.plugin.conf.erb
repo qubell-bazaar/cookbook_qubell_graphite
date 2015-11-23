@@ -1,0 +1,15 @@
+<Plugin "python">
+    # carbon_writer.py is at path /opt/collectd-plugins/carbon_writer.py
+    ModulePath "<%= @plugins_path %>"
+
+    Import "carbon_writer"
+
+    <Module "carbon_writer">
+        LineReceiverHost "<%= @carbon_host %>"
+        LineReceiverPort <%= @carbon_port %>
+        LineReceiverProtocol "<%= @carbon_protocol %>"
+        DifferentiateCountersOverTime true
+        LowercaseMetricNames true
+        TypesDB "/usr/share/collectd/types.db"
+    </Module>
+</Plugin>
